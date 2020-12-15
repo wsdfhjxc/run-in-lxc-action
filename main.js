@@ -43,24 +43,13 @@ try {
     // Install LXC stuff
     execHostCommand("sudo apt install -y lxc");
 
-    // Enable network access
-    execHostCommand(`echo "$USER veth lxcbr0 1" | \
-                     sudo tee -a "/etc/lxc/lxc-usernet" > /dev/null`);
-
-    // Copy the default LXC config
-    const configFile = "$HOME/.config/lxc/default.conf";
-    execHostCommand(`mkdir -p "$HOME/.config/lxc" && \
-                     cp "/etc/lxc/default.conf" "${configFile}" && \
-                     echo "lxc.idmap = u 0 100000 65536" >> "${configFile}" && \
-                     echo "lxc.idmap = g 0 100000 65536" >> "${configFile}"`);
-
     // Download OS image and create the LXC container
-    execHostCommand(`lxc-create -n ${name} -t download -- \
+    execHostCommand(`sudo lxc-create -n ${name} -t download -- \
                      -d "${distr}" -r "${release}" -a "${arch}"`);
 
     // Prepare working ditectory inside the LXC container
     const runInDir = "/home/run-in-lxc";
-    const rootfsDir = `$HOME/.local/share/lxc/${name}/rootfs`;
+    const rootfsDir = `/var/lib/lxc/${name}/rootfs`;
     const rootfsRunInDir = `${rootfsDir}${runInDir}`;
     execHostCommand(`sudo mkdir "${rootfsRunInDir}"`);
     execHostCommand(`sudo chmod 777 "${rootfsRunInDir}"`);
@@ -69,17 +58,17 @@ try {
     core.exportVariable("RUN_IN_LXC_DIR", rootfsRunInDir);
 
     // Copy current dir's content into the RUN_IN_LXC_DIR
-    execHostCommand(`cp -r . "${rootfsRunInDir}"`);
+    execHostCommand(`sudo cp -r . "${rootfsRunInDir}"`);
 
     // Start the LXC container
-    execHostCommand(`lxc-start -n ${name}`);
+    execHostCommand(`sudo lxc-start -n ${name}`);
 
     // Run the user's script
-    execHostCommand(`lxc-attach -n ${name} -- bash -c "\
+    execHostCommand(`sudo lxc-attach -n ${name} -- bash -c "\
                      cd '${runInDir}' && './${scriptPath}'"`);
 
     // Stop the LXC container
-    execHostCommand(`lxc-stop -n ${name}`);
+    execHostCommand(`sudo lxc-stop -n ${name}`);
 
 } catch (error) {
     core.setFailed(error.message);
