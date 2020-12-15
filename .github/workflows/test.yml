@@ -1,0 +1,19 @@
+name: Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+
+      - name: Run in LXC
+        uses: wsdfhjxc/run-in-lxc-action@v1
+        with:
+          distr: fedora
+          release: '33'
+          arch: amd64
+          run-script-path: 'scripts/test.sh'
