@@ -1,0 +1,29 @@
+name: Run in LXC
+description: Run a script in an LXC container
+author: wsdfhjxc
+
+inputs:
+  name:
+    description: "Container's name"
+    required: true
+    default: container
+
+  distr:
+    description: "Distro's name (e.g. fedora)"
+    required: true
+
+  release:
+    description: "Distro's version (e.g. 33)"
+    required: true
+
+  arch:
+    description: "Distro's architecture (e.g. amd64)"
+    required: true
+
+  run-script-path:
+    description: Path to the script (e.g. scripts/build.sh)
+    required: true
+
+runs:
+  using: node12
+  main: main.js

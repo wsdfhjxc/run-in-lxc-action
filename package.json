@@ -1,0 +1,14 @@
+{
+  "name": "run-in-lxc-action",
+  "version": "1.0.0",
+  "description": "Run in LXC - GitHub action",
+  "author": "wsdfhjxc",
+  "license": "GPL-3.0-or-later",
+  "private": true,
+  "main": "main.js",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "child_process": "^1.0.2",
+    "process": "^0.11.10"
+  }
+}
