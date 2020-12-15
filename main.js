@@ -68,9 +68,13 @@ try {
     // Start the LXC container
     execHostCommand(`sudo lxc-start -n ${name}`);
 
+    console.log("*** The script starts here");
+
     // Run the user's script
     execHostCommand(`sudo lxc-attach -n ${name} -- bash -c "\
                      cd '${runInDir}' && './${scriptPath}'"`);
+
+    console.log("*** The script finishes here");
 
     // Stop the LXC container
     execHostCommand(`sudo lxc-stop -n ${name}`);
