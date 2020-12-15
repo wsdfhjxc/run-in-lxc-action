@@ -6,12 +6,17 @@ function raiseError(message) {
     throw new Error(message);
 }
 
-function execHostCommand(command) {
+function execHostCommand(command, silent) {
     let result = childProcess.spawnSync("bash", ["-c", command]);
-    process.stdout.write(result.stdout.toString());
+
+    if (!silent) {
+        process.stdout.write(result.stdout.toString());
+    }
 
     if (result.status != 0) {
-        process.stdout.write(result.stderr.toString());
+        if (!silent) {
+            process.stdout.write(result.stderr.toString());
+        }
         raiseError("Error while executing a command on host!");
     }
 
@@ -25,7 +30,7 @@ function execHostCommand(command) {
 try {
     // Check runner's platform
     if (process.platform == "linux") {
-        if (!execHostCommand("cat /etc/os-release").stdout.includes("Ubuntu")) {
+        if (!execHostCommand("cat /etc/os-release", true).stdout.includes("Ubuntu")) {
             raiseError("This action requires an Ubuntu-based runner");
         }
     }
