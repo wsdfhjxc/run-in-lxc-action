@@ -35,7 +35,7 @@ try {
     const distr = core.getInput("distr");
     const release = core.getInput("release");
     const arch = core.getInput("arch");
-    const scriptPath = core.getInput("script-path");
+    const scriptPath = core.getInput("run-script-path");
 
     // Using the following tutorial for reference:
     // https://linuxcontainers.org/lxc/getting-started
