@@ -19,6 +19,7 @@ inputs:
   arch:
     description: "Distro's architecture (e.g. amd64)"
     required: true
+    default: amd64
 
   run-script-path:
     description: Path to the script (e.g. scripts/build.sh)
