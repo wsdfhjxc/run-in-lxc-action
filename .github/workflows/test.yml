@@ -19,4 +19,4 @@ jobs:
           run-script-path: 'scripts/test.sh'
 
       - name: Validate test artifact
-        run: cat "${{ env.RUN_IN_LXC_DIR }}/test.txt"
+        run: cat test.txt
