@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  test-fedora-33:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
@@ -15,6 +15,40 @@ jobs:
         with:
           distr: fedora
           release: '33'
+          arch: amd64
+          run-script-path: 'scripts/test.sh'
+
+      - name: Validate test artifact
+        run: cat test.txt
+
+  test-debian-sid:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+
+      - name: Run in LXC
+        uses: wsdfhjxc/run-in-lxc-action@v1
+        with:
+          distr: debian
+          release: sid
+          arch: amd64
+          run-script-path: 'scripts/test.sh'
+
+      - name: Validate test artifact
+        run: cat test.txt
+
+  test-opensuse-tumbleweed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+
+      - name: Run in LXC
+        uses: wsdfhjxc/run-in-lxc-action@v1
+        with:
+          distr: opensuse
+          release: tumbleweed
           arch: amd64
           run-script-path: 'scripts/test.sh'
 
