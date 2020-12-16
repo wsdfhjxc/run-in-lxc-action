@@ -20,20 +20,22 @@ jobs:
         with:
           distr: fedora
           release: "33"
-          run-script-path: "scripts/test.sh"
+          run-script: "scripts/test.sh"
 ```
 
 Note: The `@v1` suffix must be preserved, as only the corresponding `v1` branch contains `node_modules`.
 
 ### Input parameters
 
-| Parameter         | Description            | Required | Default value | Example value   |
-| ----------------- | ---------------------- | -------- | ------------- | --------------- |
-| `name`            | Container's name       | yes      | container     | container       |
-| `distr`           | Distro's name          | yes      | -             | fedora          |
-| `release`         | Distro's version       | yes      | -             | 33              |
-| `arch`            | Distro's architecture  | yes      | amd64         | amd64           |
-| `run-script-path` | Path to the script     | yes      | -             | scripts/test.sh |
+| Parameter    | Description            | Required | Default value | Example value   |
+| -------------| ---------------------- | -------- | ------------- | --------------- |
+| `name`       | container's name       | yes      | container     | container       |
+| `distr`      | distro's name          | yes      | -             | fedora          |
+| `release`    | distro's version       | yes      | -             | 33              |
+| `arch`       | distro's architecture  | yes      | amd64         | amd64           |
+| `run-script` | path to the script     | yes      | -             | scripts/test.sh |
+
+Note: Parameters with default values can be omitted in a step within the `with:` section.
 
 Note: Different names must be used if more than one LXC container will be used in a single job.
 
@@ -43,4 +45,4 @@ Note: Possible values for the `distr`, `release`, `arch` parameters can be retri
 
 ### Accessing post-run artifacts
 
-All artifacts created by the script (in the initial directory) are copied to the runner's current directory.
+All artifacts (files and dirs) created by the script in the initial directory are copied to the runner's current directory.
