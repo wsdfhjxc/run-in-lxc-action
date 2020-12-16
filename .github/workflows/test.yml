@@ -16,7 +16,7 @@ jobs:
           distr: fedora
           release: "33"
           arch: amd64
-          run-script-path: scripts/test.sh
+          run-script: scripts/test.sh
 
       - name: Validate test artifact
         run: cat test.txt
@@ -33,7 +33,7 @@ jobs:
           distr: debian
           release: sid
           arch: amd64
-          run-script-path: scripts/test.sh
+          run-script: scripts/test.sh
 
       - name: Validate test artifact
         run: cat test.txt
@@ -50,7 +50,7 @@ jobs:
           distr: opensuse
           release: tumbleweed
           arch: amd64
-          run-script-path: scripts/test.sh
+          run-script: scripts/test.sh
 
       - name: Validate test artifact
         run: cat test.txt
