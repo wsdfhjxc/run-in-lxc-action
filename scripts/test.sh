@@ -1,13 +1,13 @@
 #!/bin/sh
 
-echo "Test command: cat /etc/os-release"
-cat /etc/os-release
+echo "Test command: cat /etc/os-release | head -n 2"
+cat /etc/os-release | head -n 2; echo
 
 echo "Test command: pwd"
-pwd
+pwd; echo
 
 echo "Test command: ls -la"
-ls -la
+ls -la; echo
 
-echo "Test command: echo 123 > test.txt"
-echo 123 > test.txt
+echo "Test command: echo \"Success!\" > test.txt"
+echo "Success!" > test.txt
