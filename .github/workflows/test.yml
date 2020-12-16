@@ -10,13 +10,13 @@ jobs:
       - name: Checkout branch
         uses: actions/checkout@v2
 
-      - name: Run in LXC
+      - name: "Run in LXC (Fedora 33)"
         uses: wsdfhjxc/run-in-lxc-action@v1
         with:
           distr: fedora
-          release: '33'
+          release: "33"
           arch: amd64
-          run-script-path: 'scripts/test.sh'
+          run-script-path: scripts/test.sh
 
       - name: Validate test artifact
         run: cat test.txt
@@ -27,13 +27,13 @@ jobs:
       - name: Checkout branch
         uses: actions/checkout@v2
 
-      - name: Run in LXC
+      - name: "Run in LXC (Debian Sid)"
         uses: wsdfhjxc/run-in-lxc-action@v1
         with:
           distr: debian
           release: sid
           arch: amd64
-          run-script-path: 'scripts/test.sh'
+          run-script-path: scripts/test.sh
 
       - name: Validate test artifact
         run: cat test.txt
@@ -44,13 +44,13 @@ jobs:
       - name: Checkout branch
         uses: actions/checkout@v2
 
-      - name: Run in LXC
+      - name: "Run in LXC (openSUSE Tumbleweed)"
         uses: wsdfhjxc/run-in-lxc-action@v1
         with:
           distr: opensuse
           release: tumbleweed
           arch: amd64
-          run-script-path: 'scripts/test.sh'
+          run-script-path: scripts/test.sh
 
       - name: Validate test artifact
         run: cat test.txt
