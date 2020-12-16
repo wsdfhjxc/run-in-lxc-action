@@ -40,7 +40,7 @@ try {
     const distr = core.getInput("distr");
     const release = core.getInput("release");
     const arch = core.getInput("arch");
-    const scriptPath = core.getInput("run-script-path");
+    const runScript = core.getInput("run-script");
 
     // Using the following tutorial for reference:
     // https://linuxcontainers.org/lxc/getting-started
@@ -68,7 +68,7 @@ try {
 
     // Run the user's script
     execHostCommand(`sudo lxc-attach -n ${name} -- bash -c "\
-                     cd '${runInDir}' && './${scriptPath}'"`);
+                     cd '${runInDir}' && './${runScript}'"`);
 
     console.log("*** The script finishes here");
 
