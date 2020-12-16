@@ -57,13 +57,9 @@ try {
     const rootfsDir = `/var/lib/lxc/${name}/rootfs`;
     const rootfsRunInDir = `${rootfsDir}${runInDir}`;
     execHostCommand(`sudo mkdir "${rootfsRunInDir}"`);
-    execHostCommand(`sudo chmod 777 "${rootfsRunInDir}"`);
-
-    // Export the RUN_IN_LXC_DIR environment variable
-    core.exportVariable("RUN_IN_LXC_DIR", rootfsRunInDir);
 
     // Copy current dir's content into the RUN_IN_LXC_DIR
-    execHostCommand(`sudo cp -r . "${rootfsRunInDir}"`);
+    execHostCommand(`sudo cp -a . "${rootfsRunInDir}"`);
 
     // Start the LXC container
     execHostCommand(`sudo lxc-start -n ${name}`);
@@ -78,6 +74,9 @@ try {
 
     // Stop the LXC container
     execHostCommand(`sudo lxc-stop -n ${name}`);
+
+    // Copy files from the LXC container
+    execHostCommand(`sudo cp -a "${rootfsRunInDir}/." .`);
 
 } catch (error) {
     core.setFailed(error.message);
