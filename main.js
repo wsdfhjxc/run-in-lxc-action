@@ -36,11 +36,11 @@ try {
     }
 
     // Read input parameters
-    const name = core.getInput("name");
     const distr = core.getInput("distr");
     const release = core.getInput("release");
     const arch = core.getInput("arch");
     const runScript = core.getInput("run-script");
+    const name = core.getInput("name") || `${distr}-${release}-${arch}`;
 
     // Using the following tutorial for reference:
     // https://linuxcontainers.org/lxc/getting-started
