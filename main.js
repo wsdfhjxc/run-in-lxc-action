@@ -52,13 +52,13 @@ try {
     execHostCommand(`sudo lxc-create -n ${name} -t download -- \
                      -d "${distr}" -r "${release}" -a "${arch}"`);
 
-    // Prepare working ditectory inside the LXC container
+    // Prepare a working dir inside the LXC container
     const runInDir = "/home/run-in-lxc";
     const rootfsDir = `/var/lib/lxc/${name}/rootfs`;
     const rootfsRunInDir = `${rootfsDir}${runInDir}`;
     execHostCommand(`sudo mkdir "${rootfsRunInDir}"`);
 
-    // Copy current dir's content into the RUN_IN_LXC_DIR
+    // Copy current dir's content into the LXC container
     execHostCommand(`sudo cp -a . "${rootfsRunInDir}"`);
 
     // Start the LXC container
@@ -66,7 +66,7 @@ try {
 
     console.log("*** The script starts here");
 
-    // Run the user's script
+    // Run the user's script inside the LXC container
     execHostCommand(`sudo lxc-attach -n ${name} -- bash -c "\
                      cd '${runInDir}' && './${runScript}'"`);
 
