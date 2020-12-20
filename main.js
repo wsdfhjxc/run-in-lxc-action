@@ -47,7 +47,9 @@ function execHostCommand(command, options) {
 try {
     console.log("*** Checking runner's platform");
     if (process.platform == "linux") {
-        if (!execHostCommand("cat /etc/os-release", true).stdout.includes("Ubuntu")) {
+        if (!execHostCommand("cat /etc/os-release", {
+                printOutput: false
+            }).stdout.includes("Ubuntu")) {
             raiseError("This action requires an Ubuntu-based runner");
         }
     }
@@ -63,11 +65,15 @@ try {
     // https://linuxcontainers.org/lxc/getting-started
 
     console.log("*** Installing LXC stuff");
-    execHostCommand("sudo apt install -y lxc");
+    execHostCommand("sudo apt install -y lxc", {
+        printOutput: false
+    });
 
     console.log("*** Creating the LXC container");
     execHostCommand(`sudo lxc-create -n ${name} -t download -- \
-                     -d "${distr}" -r "${release}" -a "${arch}"`);
+                     -d "${distr}" -r "${release}" -a "${arch}"`, {
+        printOutput: false
+    });
 
     console.log("*** Copying files to the LXC container");
     const runInDir = "/home/run-in-lxc";
@@ -81,7 +87,9 @@ try {
 
     console.log("*** Starting the provided script");
     execHostCommand(`sudo lxc-attach -n ${name} -- bash -c "\
-                     cd '${runInDir}' && './${runScript}'"`);
+                     cd '${runInDir}' && './${runScript}'"`, {
+        haltOnError: false
+    });
 
     console.log("*** Stopping the LXC container");
     execHostCommand(`sudo lxc-stop -n ${name}`);
