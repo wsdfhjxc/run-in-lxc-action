@@ -8,3 +8,6 @@ ls -la
 
 echo "# echo \"Success!\" > test.txt"
 echo "Success!" > test.txt
+
+echo "# ping -q -c 1 github.com"
+ping -q -c 1 github.com
