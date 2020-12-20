@@ -23,26 +23,21 @@ jobs:
           run-script: "scripts/test.sh"
 ```
 
-Note: The `@v1` suffix must be preserved, as only the corresponding `v1` branch contains `node_modules`.
+Note: The `@v1` suffix is required, as the `main` branch doesn't contain `node_modules`.
 
 ### Input parameters
 
-| Parameter    | Description            | Required | Default value | Example value   |
-| -------------| ---------------------- | -------- | ------------- | --------------- |
-| `name`       | container's name       | yes      | container     | container       |
-| `distr`      | distro's name          | yes      | -             | fedora          |
-| `release`    | distro's version       | yes      | -             | 33              |
-| `arch`       | distro's architecture  | yes      | amd64         | amd64           |
-| `run-script` | path to the script     | yes      | -             | scripts/test.sh |
-
-Note: Parameters with default values can be omitted in a step within the `with:` section.
-
-Note: Different names must be used if more than one LXC container will be used in a single job.
+| Parameter    | Description           | Required | Default value | Example value   |
+| ------------ | --------------------- | -------- | ------------- | --------------- |
+| `distr`      | distro's name         | yes      | -             | fedora          |
+| `release`    | distro's version      | yes      | -             | 33              |
+| `arch`       | distro's architecture | no       | amd64         | amd64           |
+| `run-script` | path to the script    | yes      | -             | scripts/test.sh |
 
 Note: Path to the script is treated as relative to your repository's root directory.
 
-Note: Possible values for the `distr`, `release`, `arch` parameters can be retrieved [here](https://images.linuxcontainers.org).
+Note: Possible values for the `distr`, `release`, and `arch` parameters can be retrieved [here](https://images.linuxcontainers.org).
 
 ### Accessing post-run artifacts
 
-All artifacts (files and dirs) created by the script in the initial directory are copied to the runner's current directory.
+All artifacts created by the script in its initial working directory are copied to the runner's current directory.
