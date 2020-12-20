@@ -90,7 +90,7 @@ try {
     execHostCommand(`sudo lxc-start -n ${name}`);
 
     console.log("*** Starting the provided script");
-    execHostCommand(`sudo lxc-attach -n ${name} -- bash -c "\
+    execHostCommand(`sudo lxc-attach -n ${name} -- sh -c "\
                      cd '${runInDir}' && './${runScript}'"`, {
         haltOnError: false
     });
