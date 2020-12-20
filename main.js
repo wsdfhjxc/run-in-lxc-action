@@ -72,6 +72,9 @@ try {
     console.log("*** Getting files from the LXC container");
     execHostCommand(`sudo cp -a "${rootfsRunInDir}/." .`);
 
+    console.log("*** Destroying the LXC container");
+    execHostCommand(`sudo lxc-destroy -n ${name}`);
+
 } catch (error) {
     core.setFailed(error.message);
 }
