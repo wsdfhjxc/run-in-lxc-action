@@ -3,11 +3,6 @@ description: Run a script in an LXC container
 author: wsdfhjxc
 
 inputs:
-  name:
-    description: "Container's name"
-    required: true
-    default: container
-
   distr:
     description: "Distro's name (e.g. fedora)"
     required: true

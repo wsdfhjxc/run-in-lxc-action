@@ -59,7 +59,6 @@ try {
     const release = core.getInput("release");
     const arch = core.getInput("arch");
     const runScript = core.getInput("run-script");
-    const name = core.getInput("name") || `${distr}-${release}-${arch}`;
 
     // Using the following tutorial for reference:
     // https://linuxcontainers.org/lxc/getting-started
@@ -70,6 +69,7 @@ try {
     });
 
     console.log("*** Creating the LXC container");
+    const name = `${distr}-${release}-${arch}`;
     execHostCommand(`sudo lxc-create -n ${name} -t download -- \
                      -d "${distr}" -r "${release}" -a "${arch}"`, {
         printOutput: false
