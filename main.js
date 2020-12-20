@@ -6,18 +6,35 @@ function raiseError(message) {
     throw new Error(message);
 }
 
-function execHostCommand(command, silent) {
+function execHostCommand(command, options) {
+    if (options == undefined) {
+        options = {};
+    }
+    if (options.printOutput == undefined) {
+        options.printOutput = true;
+    }
+    if (options.printErrors == undefined) {
+        options.printErrors = true;
+    }
+    if (options.haltOnError == undefined) {
+        options.haltOnError = true;
+    }
+
     let result = childProcess.spawnSync("bash", ["-c", command]);
 
-    if (!silent) {
+    if (options.printOutput) {
         process.stdout.write(result.stdout.toString());
     }
 
     if (result.status != 0) {
-        if (!silent) {
+        if (options.printErrors) {
             process.stdout.write(result.stderr.toString());
         }
-        raiseError("Error while executing a command on host!");
+        if (options.haltOnError) {
+            raiseError("Error while executing a command on host!");
+        } else {
+            console.log("*** There were some errors!");
+        }
     }
 
     return {
