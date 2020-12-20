@@ -28,14 +28,14 @@ function execHostCommand(command, silent) {
 }
 
 try {
-    // Check runner's platform
+    console.log("*** Checking runner's platform");
     if (process.platform == "linux") {
         if (!execHostCommand("cat /etc/os-release", true).stdout.includes("Ubuntu")) {
             raiseError("This action requires an Ubuntu-based runner");
         }
     }
 
-    // Read input parameters
+    console.log("*** Reading input parameters");
     const distr = core.getInput("distr");
     const release = core.getInput("release");
     const arch = core.getInput("arch");
@@ -45,37 +45,31 @@ try {
     // Using the following tutorial for reference:
     // https://linuxcontainers.org/lxc/getting-started
 
-    // Install LXC stuff
+    console.log("*** Installing LXC stuff");
     execHostCommand("sudo apt install -y lxc");
 
-    // Download OS image and create the LXC container
+    console.log("*** Creating the LXC container");
     execHostCommand(`sudo lxc-create -n ${name} -t download -- \
                      -d "${distr}" -r "${release}" -a "${arch}"`);
 
-    // Prepare a working dir inside the LXC container
+    console.log("*** Copying files to the LXC container");
     const runInDir = "/home/run-in-lxc";
     const rootfsDir = `/var/lib/lxc/${name}/rootfs`;
     const rootfsRunInDir = `${rootfsDir}${runInDir}`;
     execHostCommand(`sudo mkdir "${rootfsRunInDir}"`);
-
-    // Copy current dir's content into the LXC container
     execHostCommand(`sudo cp -a . "${rootfsRunInDir}"`);
 
-    // Start the LXC container
+    console.log("*** Starting the LXC container");
     execHostCommand(`sudo lxc-start -n ${name}`);
 
-    console.log("*** The script starts here");
-
-    // Run the user's script inside the LXC container
+    console.log("*** Starting the provided script");
     execHostCommand(`sudo lxc-attach -n ${name} -- bash -c "\
                      cd '${runInDir}' && './${runScript}'"`);
 
-    console.log("*** The script finishes here");
-
-    // Stop the LXC container
+    console.log("*** Stopping the LXC container");
     execHostCommand(`sudo lxc-stop -n ${name}`);
 
-    // Copy files from the LXC container
+    console.log("*** Getting files from the LXC container");
     execHostCommand(`sudo cp -a "${rootfsRunInDir}/." .`);
 
 } catch (error) {
