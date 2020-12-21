@@ -4,22 +4,22 @@ on:
   workflow_dispatch:
     inputs:
         distr:
-          description: "Distro's name (e.g. fedora)"
+          description: "Distro's name"
           required: true
           default: fedora
 
         release:
-          description: "Distro's version (e.g. 33)"
+          description: "Distro's version"
           required: true
           default: "33"
 
         arch:
-          description: "Distro's architecture (e.g. amd64)"
+          description: "Distro's architecture"
           required: true
           default: amd64
 
         runScript:
-          description: Path to the script (e.g. scripts/test.sh)
+          description: Path to the script
           required: true
           default: scripts/test.sh
 
