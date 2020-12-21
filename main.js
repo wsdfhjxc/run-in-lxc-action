@@ -91,7 +91,7 @@ try {
 
     console.log("*** Obtaining IP address in the LXC container")
     execHostCommand(`sudo lxc-attach -n ${name} -- sh -c "\
-                     dhclient -r && dhclient; sleep 5s"`, {
+                     dhclient -r && dhclient || sleep 5s"`, {
         printOutput: false,
         printErrors: false,
         haltOnError: false
