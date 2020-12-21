@@ -18,7 +18,7 @@ on:
           required: true
           default: amd64
 
-        run-script:
+        runScript:
           description: Path to the script (e.g. scripts/test.sh)
           required: true
           default: scripts/test.sh
@@ -33,10 +33,10 @@ jobs:
       - name: Run in LXC (Fedora 33)
         uses: wsdfhjxc/run-in-lxc-action@testing
         with:
-          distr: fedora
-          release: "33"
-          arch: amd64
-          run-script: scripts/test.sh
+          distr: ${{ github.event.inputs.distr }}
+          release: ${{ github.event.inputs.release }}
+          arch: ${{ github.event.inputs.arch }}
+          run-script: ${{ github.event.inputs.runScript }}
 
       - name: Validate test artifact
         run: cat test.txt
