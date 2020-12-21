@@ -17,7 +17,7 @@ inputs:
     default: amd64
 
   run-script:
-    description: Path to the script (e.g. scripts/build.sh)
+    description: Path to the script (e.g. scripts/test.sh)
     required: true
 
 runs:
