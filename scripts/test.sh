@@ -9,5 +9,5 @@ ls -la
 echo "# echo \"Success!\" > test.txt"
 echo "Success!" > test.txt
 
-echo "# ping -q -c 1 github.com | grep -w packet"
-ping -q -c 1 github.com | grep -w packet
+echo "# getent hosts github.com"
+getent hosts github.com
