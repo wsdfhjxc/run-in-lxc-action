@@ -1,0 +1,42 @@
+name: Test
+
+on:
+  workflow_dispatch:
+    inputs:
+        distr:
+          description: "Distro's name (e.g. fedora)"
+          required: true
+          default: fedora
+
+        release:
+          description: "Distro's version (e.g. 33)"
+          required: true
+          default: "33"
+
+        arch:
+          description: "Distro's architecture (e.g. amd64)"
+          required: true
+          default: amd64
+
+        run-script:
+          description: Path to the script (e.g. scripts/test.sh)
+          required: true
+          default: scripts/test.sh
+
+jobs:
+  test-fedora-33:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+
+      - name: Run in LXC (Fedora 33)
+        uses: wsdfhjxc/run-in-lxc-action@testing
+        with:
+          distr: fedora
+          release: "33"
+          arch: amd64
+          run-script: scripts/test.sh
+
+      - name: Validate test artifact
+        run: cat test.txt
