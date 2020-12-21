@@ -24,7 +24,7 @@ on:
           default: scripts/test.sh
 
 jobs:
-  test-fedora-33:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
