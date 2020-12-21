@@ -11,7 +11,7 @@ on:
         release:
           description: "Distro's version"
           required: true
-          default: "33"
+          default: 33
 
         arch:
           description: "Distro's architecture"
