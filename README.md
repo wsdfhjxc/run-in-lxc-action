@@ -15,12 +15,12 @@ jobs:
   test-fedora-33:
     runs-on: ubuntu-latest
     steps:
-      - name: "Run in LXC (Fedora 33)"
+      - name: Run in LXC (Fedora 33)
         uses: wsdfhjxc/run-in-lxc-action@v1
         with:
           distr: fedora
-          release: "33"
-          run-script: "scripts/test.sh"
+          release: 33
+          run-script: scripts/test.sh
 ```
 
 Note: The `@v1` suffix is required, as the `main` branch doesn't contain `node_modules`.
