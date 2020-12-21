@@ -13,7 +13,7 @@ The action can be used as a step in a job of a workflow, e.g.:
 ```yaml
 jobs:
   test-fedora-33:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Run in LXC (Fedora 33)
         uses: wsdfhjxc/run-in-lxc-action@v1
