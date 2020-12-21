@@ -4,7 +4,7 @@ This is a GitHub action for running scripts in LXC containers, which can be used
 
 At the moment of writing this, the only available Linux runners on GitHub are Ubuntu-based. But sometimes, depending on your particular use case, you might want to test or build something on a specific Linux distribution (be it Fedora, Debian, openSUSE, or whatever is supported by LXC). The action has been created to address that.
 
-The action can be used only on a Ubuntu-based Linux runner, e.g. `ubuntu-latest`.
+The action can be used only on a Ubuntu-based Linux runner, e.g. `ubuntu-20.04` or `ubuntu-latest`.
 
 ## Configuration and usage
 
@@ -36,7 +36,7 @@ Note: The `@v1` suffix is required, as the `main` branch doesn't contain `node_m
 
 Note: Path to the script is treated as relative to your repository's root directory.
 
-Note: Possible values for the `distr`, `release`, and `arch` parameters can be retrieved [here](https://images.linuxcontainers.org).
+Note: Possible values for the `distr`, `release` and `arch` parameters can be retrieved [here](https://images.linuxcontainers.org).
 
 ### Accessing post-run artifacts
 
