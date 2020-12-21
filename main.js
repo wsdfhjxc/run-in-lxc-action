@@ -89,6 +89,13 @@ try {
     console.log("*** Starting the LXC container");
     execHostCommand(`sudo lxc-start -n ${name}`);
 
+    console.log("*** Obtaining IP address in the LXC container")
+    execHostCommand(`sudo lxc-attach -n ${name} -- sh -c "\
+                     dhclient -r && dhclient"`, {
+        printOutput: false,
+        haltOnError: false
+    });
+
     console.log("*** Starting the provided script");
     execHostCommand(`sudo lxc-attach -n ${name} -- sh -c "\
                      cd '${runInDir}' && './${runScript}'"`, {
