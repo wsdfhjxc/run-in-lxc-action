@@ -96,7 +96,7 @@ try {
         haltOnError: false
     });
 
-    console.log("*** Starting the provided script");
+    console.log("*** Starting the script inside the LXC container");
     execHostCommand(`sudo lxc-attach -n ${name} -- sh -c "\
                      cd '${runInDir}' && './${runScript}'"`, {
         haltOnError: false
