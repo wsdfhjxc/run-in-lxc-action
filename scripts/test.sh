@@ -9,5 +9,5 @@ ls -la
 echo "# echo \"Success!\" > test.txt"
 echo "Success!" > test.txt
 
-echo "# host github.com | head -n 1"
-host github.com | head -n 1
+echo "# getent hosts github.com"
+getent hosts github.com
