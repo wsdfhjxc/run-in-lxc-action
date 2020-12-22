@@ -26,7 +26,7 @@ function execHostCommand(command, options) {
 
     if (result.status != 0) {
         if (options.haltOnError) {
-            raiseError("Error while executing a command on host!");
+            raiseError("Failed at executing a command on host!");
         } else {
             console.log("*** There were some errors!");
         }
