@@ -6,6 +6,8 @@ function setErrorType(type) {
     core.setOutput("error-type", type);
 }
 
+function raiseError(type, message) {
+    setErrorType(type);
     throw new Error(message);
 }
 
@@ -29,7 +31,7 @@ function execHostCommand(command, options) {
 
     if (result.status != 0) {
         if (options.haltOnError) {
-            raiseError("Failed at executing a command on host!");
+            raiseError("internal", "Failed at executing a command on host!");
         } else {
             console.log("*** There were some errors!");
         }
@@ -45,12 +47,12 @@ function execHostCommand(command, options) {
 try {
     console.log("*** Checking runner's platform");
     if (process.platform != "linux") {
-        raiseError("This action requires a Linux runner");
+        raiseError("internal", "This action requires a Linux runner");
     }
     if (!execHostCommand("cat /etc/os-release", {
         printOutput: false
     }).stdout.includes("Ubuntu")) {
-        raiseError("This action requires a Ubuntu-based runner");
+        raiseError("internal", "This action requires a Ubuntu-based runner");
     }
 
     console.log("*** Reading input parameters");
