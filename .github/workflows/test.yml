@@ -18,7 +18,7 @@ on:
           required: true
           default: amd64
 
-        runScript:
+        run-script:
           description: Path to the script
           required: true
           default: scripts/test.sh
@@ -36,7 +36,7 @@ jobs:
           distr: ${{ github.event.inputs.distr }}
           release: ${{ github.event.inputs.release }}
           arch: ${{ github.event.inputs.arch }}
-          run-script: ${{ github.event.inputs.runScript }}
+          run-script: ${{ github.event.inputs.run-script }}
 
       - name: Validate test artifact
         run: cat test.txt
