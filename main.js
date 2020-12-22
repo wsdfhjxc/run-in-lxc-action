@@ -41,12 +41,13 @@ function execHostCommand(command, options) {
 
 try {
     console.log("*** Checking runner's platform");
-    if (process.platform == "linux") {
-        if (!execHostCommand("cat /etc/os-release", {
-                printOutput: false
-            }).stdout.includes("Ubuntu")) {
-            raiseError("This action requires an Ubuntu-based runner");
-        }
+    if (process.platform != "linux") {
+        raiseError("This action requires a Linux runner");
+    }
+    if (!execHostCommand("cat /etc/os-release", {
+        printOutput: false
+    }).stdout.includes("Ubuntu")) {
+        raiseError("This action requires a Ubuntu-based runner");
     }
 
     console.log("*** Reading input parameters");
