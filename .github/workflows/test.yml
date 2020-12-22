@@ -31,12 +31,18 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run in LXC
+        id: run-in-lxc
         uses: wsdfhjxc/run-in-lxc-action@testing
         with:
           distr: ${{ github.event.inputs.distr }}
           release: ${{ github.event.inputs.release }}
           arch: ${{ github.event.inputs.arch }}
           run-script: ${{ github.event.inputs.run-script }}
+
+      - name: Validate error's type
+        run: |
+          errorType=${{ steps.run-in-lxc.outputs.error-type }}
+          bash -c "[[ $errorType == none ]]"
 
       - name: Validate test artifact
         run: cat test.txt
