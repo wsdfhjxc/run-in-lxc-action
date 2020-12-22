@@ -2,7 +2,10 @@ const core = require("@actions/core");
 const process = require("process");
 const childProcess = require("child_process");
 
-function raiseError(message) {
+function setErrorType(type) {
+    core.setOutput("error-type", type);
+}
+
     throw new Error(message);
 }
 
@@ -107,6 +110,8 @@ try {
 
     console.log("*** Destroying the LXC container");
     execHostCommand(`sudo lxc-destroy -n ${name}`);
+
+    setErrorType("none");
 
 } catch (error) {
     core.setFailed(error.message);

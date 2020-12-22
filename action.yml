@@ -20,6 +20,10 @@ inputs:
     description: Path to the script (e.g. scripts/test.sh)
     required: true
 
+outputs:
+  error-type:
+    description: "Action error's type ('none', 'script' or 'internal')"
+
 runs:
   using: node12
   main: main.js
