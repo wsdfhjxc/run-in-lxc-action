@@ -70,8 +70,8 @@ try {
     // https://linuxcontainers.org/lxc/getting-started
 
     console.log("*** Installing LXC stuff");
-    execHostCommand(`sudo apt update && \
-                     sudo apt install -y lxc`, {
+    execHostCommand(`sudo apt-get update && \
+                     sudo apt-get install -y lxc`, {
         printOutput: false
     });
 
