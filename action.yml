@@ -16,7 +16,7 @@ inputs:
     required: true
     default: amd64
 
-  run-script:
+  command:
     description: Command to run (e.g. ./scripts/test.sh)
     required: true
 
