@@ -1,5 +1,5 @@
 name: Run in LXC
-description: Run a command or script in an LXC container
+description: Run a shell command or script in an LXC container
 author: wsdfhjxc
 
 inputs:
