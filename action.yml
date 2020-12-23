@@ -1,5 +1,5 @@
 name: Run in LXC
-description: Run a script in an LXC container
+description: Run a command or script in an LXC container
 author: wsdfhjxc
 
 inputs:
@@ -17,12 +17,12 @@ inputs:
     default: amd64
 
   run-script:
-    description: Path to the script (e.g. scripts/test.sh)
+    description: Command to run (e.g. ./scripts/test.sh)
     required: true
 
 outputs:
   error-type:
-    description: "Action error's type ('none', 'script' or 'internal')"
+    description: "Action error's type (script, internal)"
 
 runs:
   using: node12
