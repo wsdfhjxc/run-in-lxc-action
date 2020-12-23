@@ -59,7 +59,7 @@ try {
     const distr = core.getInput("distr");
     const release = core.getInput("release");
     const arch = core.getInput("arch");
-    const runScript = core.getInput("run-script");
+    const command = core.getInput("command");
 
     // Using the following tutorial for reference:
     // https://linuxcontainers.org/lxc/getting-started
@@ -100,7 +100,7 @@ try {
 
     console.log("*** Starting the script inside the LXC container");
     execHostCommand(`sudo lxc-attach -n ${name} -- sh -c "\
-                     cd '${runInDir}' && './${runScript}'"`, {
+                     cd '${runInDir}' || exit 1; ${command}"`, {
         haltOnError: false
     });
 
