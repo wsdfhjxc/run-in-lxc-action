@@ -2,12 +2,14 @@ const core = require("@actions/core");
 const process = require("process");
 const childProcess = require("child_process");
 
-function setErrorType(type) {
+function raiseError(type) {
     core.setOutput("error-type", type);
-}
-
-function raiseError(type, message) {
-    setErrorType(type);
+    let message = "";
+    if (type == "internal") {
+        message += "The action itself has failed at configuring or starting the LXC container";
+    } else if (type == "command") {
+        message += "The provided command has returned a non-zero exit code";
+    }
     throw new Error(message);
 }
 
@@ -31,7 +33,7 @@ function execHostCommand(command, options) {
 
     if (result.status != 0) {
         if (options.haltOnError) {
-            raiseError("internal", "Failed at executing a command on host!");
+            raiseError("internal");
         } else {
             console.log("*** There were some errors!");
         }
@@ -46,13 +48,11 @@ function execHostCommand(command, options) {
 
 try {
     console.log("*** Checking runner's platform");
-    if (process.platform != "linux") {
-        raiseError("internal", "This action requires a Linux runner");
-    }
-    if (!execHostCommand("cat /etc/os-release", {
+    if (process.platform != "linux" ||
+        !execHostCommand("cat /etc/os-release", {
         printOutput: false
     }).stdout.includes("Ubuntu")) {
-        raiseError("internal", "This action requires a Ubuntu-based runner");
+        raiseError("internal");
     }
 
     console.log("*** Reading input parameters");
@@ -98,11 +98,11 @@ try {
         haltOnError: false
     });
 
-    console.log("*** Starting the script inside the LXC container");
-    execHostCommand(`sudo lxc-attach -n ${name} -- sh -c "\
-                     cd '${runInDir}' || exit 1; ${command}"`, {
+    console.log("*** Running the command inside the LXC container");
+    let commandStatus = execHostCommand(`sudo lxc-attach -n ${name} -- sh -c "\
+                                         cd '${runInDir}' || exit 1; ${command}"`, {
         haltOnError: false
-    });
+    }).status;
 
     console.log("*** Stopping the LXC container");
     execHostCommand(`sudo lxc-stop -n ${name}`);
@@ -112,6 +112,10 @@ try {
 
     console.log("*** Destroying the LXC container");
     execHostCommand(`sudo lxc-destroy -n ${name}`);
+
+    if (commandStatus != 0) {
+        raiseError("command");
+    }
 
 } catch (error) {
     core.setFailed(error.message);
