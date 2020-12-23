@@ -8,6 +8,3 @@ ls -la
 
 echo "# echo \"Success!\" > test.txt"
 echo "Success!" > test.txt
-
-echo "# getent hosts github.com"
-getent hosts github.com
