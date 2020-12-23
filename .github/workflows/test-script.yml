@@ -32,7 +32,7 @@ jobs:
 
       - name: Run in LXC
         id: run-in-lxc
-        uses: wsdfhjxc/run-in-lxc-action@testing
+        uses: wsdfhjxc/run-in-lxc-action@v1
         with:
           distr: ${{ github.event.inputs.distr }}
           release: ${{ github.event.inputs.release }}

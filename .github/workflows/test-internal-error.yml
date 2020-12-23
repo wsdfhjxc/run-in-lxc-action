@@ -12,7 +12,7 @@ jobs:
 
       - name: Run in LXC
         id: run-in-lxc
-        uses: wsdfhjxc/run-in-lxc-action@testing
+        uses: wsdfhjxc/run-in-lxc-action@v1
         with:
           distr: fedora
           release: zzzzzz # internal error
