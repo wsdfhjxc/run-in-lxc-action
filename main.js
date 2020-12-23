@@ -113,8 +113,6 @@ try {
     console.log("*** Destroying the LXC container");
     execHostCommand(`sudo lxc-destroy -n ${name}`);
 
-    setErrorType("none");
-
 } catch (error) {
     core.setFailed(error.message);
 }
