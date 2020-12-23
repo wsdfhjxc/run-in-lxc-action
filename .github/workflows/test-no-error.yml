@@ -1,0 +1,22 @@
+name: "Test: no error"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+
+      - name: Run in LXC
+        id: run-in-lxc
+        uses: wsdfhjxc/run-in-lxc-action@testing
+        with:
+          distr: fedora
+          release: 33
+          command: exit 0
+
+      - name: Validate error's type
+        run: errorType=${{ steps.run-in-lxc.outputs.error-type }}

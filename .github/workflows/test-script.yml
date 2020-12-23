@@ -1,4 +1,4 @@
-name: Test (generic)
+name: "Test: script"
 
 on:
   workflow_dispatch:
@@ -18,10 +18,10 @@ on:
           required: true
           default: amd64
 
-        run-script:
-          description: Path to the script
+        command:
+          description: Command to run
           required: true
-          default: scripts/test.sh
+          default: ./scripts/test.sh
 
 jobs:
   test:
@@ -37,12 +37,10 @@ jobs:
           distr: ${{ github.event.inputs.distr }}
           release: ${{ github.event.inputs.release }}
           arch: ${{ github.event.inputs.arch }}
-          run-script: ${{ github.event.inputs.run-script }}
+          command: ${{ github.event.inputs.command }}
 
       - name: Validate error's type
-        run: |
-          errorType=${{ steps.run-in-lxc.outputs.error-type }}
-          bash -c "[[ $errorType == none ]]"
+        run: errorType=${{ steps.run-in-lxc.outputs.error-type }}
 
       - name: Validate test artifact
         run: cat test.txt
