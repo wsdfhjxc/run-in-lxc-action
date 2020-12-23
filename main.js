@@ -20,6 +20,9 @@ function execHostCommand(command, options) {
     if (options.printOutput == undefined) {
         options.printOutput = true;
     }
+    if (options.printErrors == undefined) {
+        options.printErrors = true;
+    }
     if (options.haltOnError == undefined) {
         options.haltOnError = true;
     }
@@ -28,6 +31,8 @@ function execHostCommand(command, options) {
 
     if (options.printOutput) {
         process.stdout.write(result.stdout.toString());
+    }
+    if (options.printErrors) {
         process.stdout.write(result.stderr.toString());
     }
 
@@ -95,6 +100,7 @@ try {
     execHostCommand(`sudo lxc-attach -n ${name} -- sh -c "\
                      dhclient -r && dhclient || sleep 5s"`, {
         printOutput: false,
+        printErrors: false,
         haltOnError: false
     });
 
