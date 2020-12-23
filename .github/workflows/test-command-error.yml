@@ -19,4 +19,5 @@ jobs:
           command: exit 1 # command error
 
       - name: Validate error's type
+        if: ${{ failure() }}
         run: errorType=${{ steps.run-in-lxc.outputs.error-type }}
