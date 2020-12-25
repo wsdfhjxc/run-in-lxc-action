@@ -61,11 +61,11 @@ try {
     }
 
     console.log("*** Reading input parameters");
-    const distr = core.getInput("distr");
-    const release = core.getInput("release");
-    const arch = core.getInput("arch");
-    const command = core.getInput("command");
-    const shell = core.getInput("shell");
+    const distr = core.getInput("distr") || "";
+    const release = core.getInput("release") || "";
+    const arch = core.getInput("arch") || "amd64";
+    const command = core.getInput("command") || "";
+    const shell = core.getInput("shell") || "sh";
 
     // Using the following tutorial for reference:
     // https://linuxcontainers.org/lxc/getting-started
