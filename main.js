@@ -65,6 +65,7 @@ try {
     const release = core.getInput("release");
     const arch = core.getInput("arch");
     const command = core.getInput("command");
+    const shell = core.getInput("shell");
 
     // Using the following tutorial for reference:
     // https://linuxcontainers.org/lxc/getting-started
