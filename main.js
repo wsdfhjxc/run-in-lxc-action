@@ -111,7 +111,7 @@ try {
     let commandStatus = execHostCommand(`sudo lxc-attach -n ${name} -- sh -c '\
                                          cd ${runInDir} && cat <<"EOF" | ${shell}
 ${command.split("'").join("'\\''")}
-EOF'`, {
+EOF' 2>&1`, {
         haltOnError: false
     }).status;
 
