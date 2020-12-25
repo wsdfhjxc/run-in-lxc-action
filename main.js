@@ -94,7 +94,9 @@ try {
     execHostCommand(`sudo cp -a . "${rootfsRunInDir}"`);
 
     console.log("*** Starting the LXC container");
-    execHostCommand(`sudo lxc-start -n ${name}`);
+    execHostCommand(`sudo lxc-start -n ${name}`, {
+        printOutput: false
+    });
 
     console.log("*** Obtaining IP address in the LXC container")
     execHostCommand(`sudo lxc-attach -n ${name} -- sh -c "\
@@ -111,13 +113,19 @@ try {
     }).status;
 
     console.log("*** Stopping the LXC container");
-    execHostCommand(`sudo lxc-stop -n ${name}`);
+    execHostCommand(`sudo lxc-stop -n ${name}`, {
+        printOutput: false
+    });
 
     console.log("*** Getting files from the LXC container");
-    execHostCommand(`sudo cp -a "${rootfsRunInDir}/." .`);
+    execHostCommand(`sudo cp -a "${rootfsRunInDir}/." .`, {
+        printOutput: false
+    });
 
     console.log("*** Destroying the LXC container");
-    execHostCommand(`sudo lxc-destroy -n ${name}`);
+    execHostCommand(`sudo lxc-destroy -n ${name}`, {
+        printOutput: false
+    });
 
     if (commandStatus != 0) {
         raiseError("command");
