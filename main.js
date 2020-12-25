@@ -108,8 +108,10 @@ try {
     });
 
     console.log("*** Running the command inside the LXC container");
-    let commandStatus = execHostCommand(`sudo lxc-attach -n ${name} -- sh -c "\
-                                         cd '${runInDir}' || exit 1; ${command}"`, {
+    let commandStatus = execHostCommand(`sudo lxc-attach -n ${name} -- sh -c '\
+                                         cd ${runInDir} && cat <<"EOF" | ${shell}
+${command.split("'").join("'\\''")}
+EOF'`, {
         haltOnError: false
     }).status;
 
