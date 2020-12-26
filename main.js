@@ -120,7 +120,7 @@ EOF' 2>&1`, {
         printOutput: false
     });
 
-    console.log("*** Getting files from the LXC container");
+    console.log("*** Copying artifacts from the LXC container");
     execHostCommand(`sudo cp -a "${rootfsRunInDir}/." .`, {
         printOutput: false
     });
