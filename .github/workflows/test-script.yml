@@ -37,7 +37,9 @@ jobs:
           distr: ${{ github.event.inputs.distr }}
           release: ${{ github.event.inputs.release }}
           arch: ${{ github.event.inputs.arch }}
-          command: ${{ github.event.inputs.command }}
+          command: |
+            echo "Testing"
+            ./scripts/test.sh
 
       - name: Validate error's type
         run: errorType=${{ steps.run-in-lxc.outputs.error-type }}
