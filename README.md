@@ -1,6 +1,6 @@
 # Run in LXC
 
-This is a GitHub action for running shell commands or scripts in disposable LXC containers.
+This is a GitHub action for running commands or scripts in disposable LXC containers.
 
 At the moment of writing this, the only available Linux runners on GitHub are Ubuntu-based. But sometimes, depending on your particular use case, you might want to test or build something on a specific Linux distribution (be it Fedora, Debian, openSUSE, or whatever is supported by LXC). This action has been created to address that.
 
@@ -20,7 +20,9 @@ jobs:
         with:
           distr: fedora
           release: 33
-          command: ./scripts/test.sh
+          command: |
+            echo "Testing"
+            ./scripts/test.sh
 ```
 
 Note: The `@v1` suffix is required, as the `main` branch doesn't contain `node_modules`.
@@ -33,6 +35,7 @@ Note: The `@v1` suffix is required, as the `main` branch doesn't contain `node_m
 | `release` | distro's version      | yes      | -             | 33                |
 | `arch`    | distro's architecture | no       | amd64         | amd64             |
 | `command` | command to run        | yes      | -             | ./scripts/test.sh |
+| `shell`   | command interpreter   | no       | sh            | bash              |
 
 Note: Possible values for the `distr`, `release` and `arch` parameters can be retrieved [here](https://images.linuxcontainers.org).
 
@@ -46,13 +49,13 @@ Note: The initial working directory for the command is a mirror of your reposito
 
 Note: The value can be accessed via `${{ steps.your-step-id.outputs.error-type }}`
 
-Note: If the value isn't empty, "command" means that the provided command has returned a non-zero exit code, while "internal" means that the action itself has failed at configuring or starting the LXC container.
+Note: If the value isn't empty, "command" means that the provided command has returned a non-zero exit code, while "internal" means that, for some reason, the action itself has failed at configuring or starting the LXC container.
 
 ### Accessing post-run artifacts
 
 All artifacts created in the initial working directory are copied to the runner's current directory.
 
-Note: This also applies even if the action fails with a "command" error (artifacts are copied regardless).
+Note: The artifacts are copied also if the action fails with a "command" error.
 
 ## License
 
