@@ -59,6 +59,6 @@ Note: The artifacts are copied also if the action fails with a "command" error.
 
 ## License
 
-Copyright (C) 2020 wsdfhjxc
-
 [GNU General Public License v3.0](LICENSE)
+
+Note: Does not apply to the `node_modules` directory in the `v1` branch.
