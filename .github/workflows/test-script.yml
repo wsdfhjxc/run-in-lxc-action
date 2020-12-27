@@ -13,11 +13,6 @@ on:
           required: true
           default: 33
 
-        arch:
-          description: "Distro's architecture"
-          required: true
-          default: amd64
-
 jobs:
   test-script:
     runs-on: ubuntu-20.04
@@ -31,7 +26,6 @@ jobs:
         with:
           distr: ${{ github.event.inputs.distr }}
           release: ${{ github.event.inputs.release }}
-          arch: ${{ github.event.inputs.arch }}
           command: |
             echo "Testing"
             ./scripts/test.sh
