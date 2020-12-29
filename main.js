@@ -8,7 +8,7 @@ function raiseError(type) {
     if (type == "internal") {
         message += "The action itself has failed at configuring or starting the LXC container";
     } else if (type == "command") {
-        message += "The provided command has returned a non-zero exit code";
+        message += "The very last provided command has returned a non-zero exit code";
     }
     throw new Error(message);
 }
@@ -126,7 +126,7 @@ EOF' 2>&1`, {
         printOutput: false
     });
 
-    console.log("*** Destroying the LXC container");
+    console.log("*** Destroying the LXC container and finishing");
     execHostCommand(`sudo lxc-destroy -n ${name}`, {
         printOutput: false
     });
