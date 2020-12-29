@@ -16,8 +16,8 @@ inputs:
     required: true
     default: amd64
 
-  command:
-    description: Command to run (e.g. ./scripts/test.sh)
+  run:
+    description: Command(s) to run (e.g. ./scripts/test.sh)
     required: true
 
   shell:

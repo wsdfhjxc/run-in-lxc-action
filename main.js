@@ -64,7 +64,7 @@ try {
     const distr = core.getInput("distr") || "";
     const release = core.getInput("release") || "";
     const arch = core.getInput("arch") || "amd64";
-    const command = core.getInput("command") || "";
+    const run = core.getInput("run");
     const shell = core.getInput("shell") || "sh";
 
     // Using the following tutorial for reference:
@@ -110,7 +110,7 @@ try {
     console.log("*** Running the command inside the LXC container");
     let commandStatus = execHostCommand(`sudo lxc-attach -n ${name} -- sh -c '\
                                          cd ${runInDir} && cat <<"EOF" | ${shell}
-${command.split("'").join("'\\''")}
+${run.split("'").join("'\\''")}
 EOF' 2>&1`, {
         haltOnError: false
     }).status;
