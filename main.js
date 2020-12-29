@@ -27,7 +27,7 @@ function execHostCommand(command, options) {
         options.haltOnError = true;
     }
 
-    let result = childProcess.spawnSync("bash", ["-c", command]);
+    const result = childProcess.spawnSync("bash", ["-c", command]);
 
     if (options.printOutput) {
         process.stdout.write(result.stdout.toString());
@@ -108,9 +108,10 @@ try {
     });
 
     console.log("*** Running the command inside the LXC container");
-    let commandStatus = execHostCommand(`sudo lxc-attach -n ${name} -- sh -c '\
-                                         cd ${runInDir} && cat <<"EOF" | ${shell}
-${run.split("'").join("'\\''")}
+    const runEscaped = run.split("'").join("'\\''");
+    const commandStatus = execHostCommand(`sudo lxc-attach -n ${name} -- sh -c '\
+                                           cd ${runInDir} && cat <<"EOF" | ${shell}
+${runEscaped}
 EOF' 2>&1`, {
         haltOnError: false
     }).status;
