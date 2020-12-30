@@ -15,18 +15,18 @@ on:
 
 jobs:
   test-script:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
         uses: actions/checkout@v2
 
       - name: Run in LXC
         id: run-in-lxc
-        uses: wsdfhjxc/run-in-lxc-action@v1
+        uses: wsdfhjxc/run-in-lxc-action@testing
         with:
           distr: ${{ github.event.inputs.distr }}
           release: ${{ github.event.inputs.release }}
-          command: |
+          run: |
             echo "Testing"
             ./scripts/test.sh
 

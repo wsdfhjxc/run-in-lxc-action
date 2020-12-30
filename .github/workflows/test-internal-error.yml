@@ -5,18 +5,18 @@ on:
 
 jobs:
   test-internal-error:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
         uses: actions/checkout@v2
 
       - name: Run in LXC
         id: run-in-lxc
-        uses: wsdfhjxc/run-in-lxc-action@v1
+        uses: wsdfhjxc/run-in-lxc-action@testing
         with:
           distr: fedora
           release: zzzzzz # internal error
-          command: exit 0
+          run: exit 0
 
       - name: Validate error's type
         if: ${{ failure() }}
