@@ -52,6 +52,8 @@ Note: Possible values for the `distr`, `release` and `arch` parameters can be fo
 
 Note: The initial working directory for the command is a mirror of your repository's root directory.
 
+Note: Unlike GitHub Actions' standard behavior in regard to the `run` parameter, this action does not mark a step as failed if any of the provided commands returns a non-zero exit code – it does it only if it's the very last command.
+
 ### Output parameters
 
 | Parameter    | Description         | Possible values            |
