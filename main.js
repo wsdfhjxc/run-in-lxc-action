@@ -128,7 +128,9 @@ EOF' 2>&1`, {
 
     console.log("*** Destroying the LXC container and finishing");
     execHostCommand(`sudo lxc-destroy -n ${name}`, {
-        printOutput: false
+        printOutput: false,
+        printErrors: false,
+        haltOnError: false
     });
 
     if (commandStatus != 0) {
