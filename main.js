@@ -83,9 +83,7 @@ try {
         printOutput: false
     });
 
-    console.log(`*** Created '${execHostCommand("sudo lxc-ls", {
-        printOutput: false
-    }).stdout.trim()}' LXC container`);
+    console.log(`*** Created '${name}' LXC container`);
 
     console.log("*** Copying files to the LXC container");
     const runInDir = "/home/run-in-lxc";
