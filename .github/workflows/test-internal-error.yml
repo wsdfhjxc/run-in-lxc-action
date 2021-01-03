@@ -7,7 +7,7 @@ jobs:
   test-internal-error:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout branch
+      - name: Checkout repo
         uses: actions/checkout@v2
 
       - name: Run in LXC
