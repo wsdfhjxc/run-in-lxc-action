@@ -36,12 +36,8 @@ function execHostCommand(command, options) {
         process.stdout.write(result.stderr.toString());
     }
 
-    if (result.status != 0) {
-        if (options.haltOnError) {
-            raiseError("internal");
-        } else {
-            console.log("*** There were some errors!");
-        }
+    if (result.status != 0 && options.haltOnError) {
+        raiseError("internal");
     }
 
     return {
@@ -78,10 +74,17 @@ try {
 
     console.log("*** Creating the LXC container");
     const name = `${distr}-${release}-${arch}`;
-    execHostCommand(`sudo lxc-create -n ${name} -t download -- \
-                     -d "${distr}" -r "${release}" -a "${arch}"`, {
-        printOutput: false
-    });
+
+    let attempts = 1;
+    const maxAttempts = 3;
+    while (execHostCommand(`sudo lxc-create -n ${name} -t download -- \
+                            -d "${distr}" -r "${release}" -a "${arch}"`, {
+               printOutput: false,
+               printErrors: attempts == maxAttempts,
+               haltOnError: attempts == maxAttempts
+           }).status != 0) {
+        attempts += 1;
+    }
 
     console.log(`*** Created '${name}' LXC container`);
 
