@@ -59,7 +59,7 @@ try {
     console.log("*** Reading input parameters");
     const distr = core.getInput("distr") || "";
     const release = core.getInput("release") || "";
-    const arch = core.getInput("arch") || "amd64";
+    const arch = "amd64";
     const run = core.getInput("run");
     const shell = core.getInput("shell") || "sh";
 

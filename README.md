@@ -10,6 +10,7 @@ This is a GitHub action for running commands or scripts in LXC containers.
   - [Output parameters](#output-parameters)
   - [Accessing post-run artifacts](#accessing-post-run-artifacts)
 - [License](#license)
+- [Changelog](#changelog)
 
 ## Introduction
 
@@ -34,9 +35,9 @@ jobs:
             ./scripts/test.sh
 ```
 
-Note: The `@1.x` (or an actual tag) suffix is required, as the `main` branch doesn't contain `node_modules`.
+> _Note:_ The `@1.x` suffix is required, as the `main` branch lacks `node_modules`.
 
-Note: The action can be used only on a Ubuntu-based Linux runner, e.g. `ubuntu-latest` or `ubuntu-20.04`.
+> _Note:_ The action can be used only on a Ubuntu-based Linux runner, e.g. `ubuntu-latest`.
 
 ### Input parameters
 
@@ -44,15 +45,14 @@ Note: The action can be used only on a Ubuntu-based Linux runner, e.g. `ubuntu-l
 | --------- | --------------------- | -------- | ------------- | ----------------- |
 | `distr`   | distro's name         | yes      | -             | fedora            |
 | `release` | distro's version      | yes      | -             | 33                |
-| `arch`    | distro's architecture | no       | amd64         | amd64             |
 | `run`     | command(s) to run     | yes      | -             | ./scripts/test.sh |
 | `shell`   | command interpreter   | no       | sh            | bash              |
 
-Note: Possible values for the `distr`, `release` and `arch` parameters can be found [here](https://images.linuxcontainers.org).
+> _Note:_ Possible values for the `distr` and `release` parameters can be found [here](https://images.linuxcontainers.org).
 
-Note: The initial working directory for the command is a mirror of your repository's root directory.
+> _Note:_ The initial working directory for the command is a mirror of your repository's root directory.
 
-Note: Unlike GitHub Actions' standard behavior in regard to the `run` parameter, this action does not mark a step as failed if any of the provided commands returns a non-zero exit code – it does it only if it's the very last command.
+> _Note:_ Unlike GitHub Actions' standard behavior in regard to the `run` parameter, this action does not mark a step as failed if any of the provided commands returns a non-zero exit code, but only if it's the very last command.
 
 ### Output parameters
 
@@ -60,18 +60,22 @@ Note: Unlike GitHub Actions' standard behavior in regard to the `run` parameter,
 | ------------ | ------------------- | -------------------------- |
 | `error-type` | action error's type | _empty_, command, internal |
 
-Note: The value can be accessed via `${{ steps.your-step-id.outputs.error-type }}`
+> _Note:_ The value can be accessed via: `${{ steps.your-step-id.outputs.error-type }}`
 
-Note: If the value isn't empty, "command" means that the very last provided command has returned a non-zero exit code, while "internal" means that the action itself has failed at configuring or starting the LXC container.
+> _Note:_ If the value isn't empty, "command" means that the very last provided command has returned a non-zero exit code, while "internal" means that the action itself has failed at configuring or starting the LXC container.
 
 ### Accessing post-run artifacts
 
-All artifacts created in the initial working directory are copied to the runner's current directory.
+All artifacts created in the initial directory are copied to the runner's current directory.
 
-Note: If the action fails with a "command" error, any artifacts are also copied, regardless of the error.
+> _Note:_ If the action fails with a "command" error, any artifacts are also copied, regardless.
 
 ## License
 
 [GNU General Public License v3.0](LICENSE)
 
-Note: Does not apply to the `node_modules` directory in the `1.x` branch.
+> _Note:_ Does not apply to the `node_modules` directory in the `1.x` branch.
+
+## Changelog
+
+Changes are listed [here](CHANGELOG.md) and in the [releases section](https://github.com/wsdfhjxc/run-in-lxc-action/releases).

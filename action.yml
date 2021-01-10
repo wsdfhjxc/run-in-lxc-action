@@ -11,11 +11,6 @@ inputs:
     description: "Distro's version (e.g. 33)"
     required: true
 
-  arch:
-    description: "Distro's architecture (e.g. amd64)"
-    required: true
-    default: amd64
-
   run:
     description: Command(s) to run (e.g. ./scripts/test.sh)
     required: true
